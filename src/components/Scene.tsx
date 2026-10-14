@@ -1,5 +1,5 @@
 import { Canvas, useFrame } from "@react-three/fiber";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Group } from "three";
 
 function Core({ reduced }: { reduced: boolean }) {
@@ -65,19 +65,30 @@ function Core({ reduced }: { reduced: boolean }) {
   );
 }
 export default function Scene({ reduced }: { reduced: boolean }) {
+  const container = useRef<HTMLDivElement>(null);
+  const [visible, setVisible] = useState(true);
+  useEffect(() => {
+    const observer = new IntersectionObserver(([entry]) =>
+      setVisible(entry.isIntersecting),
+    );
+    if (container.current) observer.observe(container.current);
+    return () => observer.disconnect();
+  }, []);
   return (
-    <Canvas
-      dpr={[1, 1.5]}
-      camera={{ position: [0, 0.3, 6], fov: 45 }}
-      frameloop={reduced ? "demand" : "always"}
-      gl={{ alpha: true, antialias: true }}
-      aria-label="Núcleo geométrico tridimensional conectado por órbitas luminosas"
-    >
-      <ambientLight intensity={1.1} />
-      <directionalLight position={[3, 4, 4]} intensity={3} color="#e8e2ff" />
-      <pointLight position={[-3, -1, 2]} intensity={20} color="#6250ff" />
-      <pointLight position={[3, 0, -2]} intensity={15} color="#21baff" />
-      <Core reduced={reduced} />
-    </Canvas>
+    <div ref={container} style={{ width: "100%", height: "100%" }}>
+      <Canvas
+        dpr={[1, 1.5]}
+        camera={{ position: [0, 0.3, 6], fov: 45 }}
+        frameloop={reduced || !visible ? "demand" : "always"}
+        gl={{ alpha: true, antialias: true }}
+        aria-label="Núcleo geométrico tridimensional conectado por órbitas luminosas"
+      >
+        <ambientLight intensity={1.1} />
+        <directionalLight position={[3, 4, 4]} intensity={3} color="#e8e2ff" />
+        <pointLight position={[-3, -1, 2]} intensity={20} color="#6250ff" />
+        <pointLight position={[3, 0, -2]} intensity={15} color="#21baff" />
+        <Core reduced={reduced} />
+      </Canvas>
+    </div>
   );
 }
