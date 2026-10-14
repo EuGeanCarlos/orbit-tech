@@ -1,6 +1,8 @@
-# Gean Carlos — Portfólio
+# Orbit — Portfólio
 
 Portfólio pessoal para compartilhar projetos autorais, estudos e experiências com desenvolvimento de software. Autor: [Gean Carlos](https://github.com/EuGeanCarlos).
+
+**Orbit é um nome provisório.** Para renomear, altere `name` em `src/config/site.ts`, o título em `index.html` e o texto da imagem social em `public/social.svg`. A navegação, a apresentação e o rodapé usam o nome configurado.
 
 [Abrir portfólio](https://eugeancarlos.github.io/orbit-tech/)
 

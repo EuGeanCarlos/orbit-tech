@@ -51,7 +51,8 @@ function Logo() {
         <circle cx="21" cy="21" r="6" />
       </svg>
       <span>
-        gean carlos<span className="logo-period">.</span>
+        {site.name.toLowerCase()}
+        <span className="logo-period">.</span>
       </span>
     </span>
   );
@@ -94,7 +95,7 @@ export default function App() {
         Pular para o conteúdo
       </a>
       <header className={scrolled ? "scrolled" : ""}>
-        <a href="#inicio" aria-label="Gean Carlos — início">
+        <a href="#inicio" aria-label={`${site.name} — início`}>
           <Logo />
         </a>
         <nav aria-label="Principal" className={menu ? "open" : ""}>
@@ -130,7 +131,8 @@ export default function App() {
         <section id="inicio" className="hero">
           <div className="hero-copy">
             <span className="pill">
-              <span className="status-dot" /> PORTFÓLIO / GEAN CARLOS
+              <span className="status-dot" /> PORTFÓLIO /{" "}
+              {site.name.toUpperCase()}
             </span>
             <h1>
               Ideias, código

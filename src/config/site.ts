@@ -1,5 +1,5 @@
 export const site = {
-  name: "Gean Carlos",
+  name: "Orbit",
   email: "",
   whatsapp: "",
   formEndpoint: "",
