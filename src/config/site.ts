@@ -4,7 +4,8 @@ export const site = {
   whatsapp: "",
   formEndpoint: "",
   github: "https://github.com/EuGeanCarlos",
-  description: "Portfólio pessoal de desenvolvimento e experiências digitais.",
+  description:
+    "Sites, sistemas, automação e inteligência artificial para transformar ideias em soluções reais.",
 };
 export const projects = [
   {
