@@ -232,11 +232,11 @@ export default function App() {
               <span className="status-dot" /> SOFTWARE PARA O PRÓXIMO CAPÍTULO
             </span>
             <h1>
-              Transformamos
+              Transformamos{" "}
               <br />
               ideias em{" "}
               <span>
-                soluções
+                soluções{" "}
                 <br />
                 digitais inteligentes.
               </span>
