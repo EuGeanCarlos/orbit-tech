@@ -2533,3 +2533,121 @@ footer {
     transform: none;
   }
 }
+.personal-logo {
+  font-size: 25px;
+  letter-spacing: -1.1px;
+}
+.logo-period {
+  color: #b3a0ff;
+}
+.about-link {
+  margin-top: 25px;
+}
+.portfolio-contact {
+  background: radial-gradient(ellipse at 20% 80%, #7143b81a, transparent 60%);
+}
+.portfolio-contact > .button {
+  margin-top: 30px;
+}
+.portfolio-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 30px;
+}
+.portfolio-footer p {
+  font-size: 11px;
+  color: #91869f;
+  line-height: 1.8;
+  max-width: 300px;
+  margin-top: 16px;
+}
+.collatz-preview {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  color: #bfc5f3;
+}
+.collatz-preview small {
+  font-size: 8px;
+  letter-spacing: 2px;
+}
+.collatz-preview b {
+  font-family: "Space Grotesk";
+  font-size: 29px;
+  font-weight: 500;
+}
+.collatz-preview > span {
+  font-size: 11px;
+  line-height: 1.8;
+  color: #9da1b8;
+}
+.player-preview {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+.record-disc {
+  display: grid;
+  place-items: center;
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background: repeating-radial-gradient(circle, #291a35 0 5px, #432657 6px 7px);
+  border: 1px solid #ad83d555;
+  color: #d9b8f2;
+  box-shadow: 0 0 35px #9761b422;
+}
+.player-preview > span:last-child {
+  font-size: 6px;
+  letter-spacing: 1.6px;
+  color: #9f86b3;
+}
+.player-preview > b {
+  font-size: 18px !important;
+}
+.hero h1 {
+  font-size: clamp(45px, 4.4vw, 68px);
+}
+@media (max-width: 900px) {
+  header nav {
+    gap: 14px;
+  }
+  .personal-logo {
+    font-size: 22px;
+  }
+  .personal-logo svg {
+    width: 28px;
+  }
+}
+@media (max-width: 800px) and (min-width: 601px) {
+  .hero h1 {
+    font-size: 40px;
+  }
+}
+@media (max-width: 600px) {
+  .personal-logo {
+    font-size: 23px;
+    letter-spacing: -1px;
+  }
+  .personal-logo svg {
+    width: 28px;
+  }
+  .hero h1 {
+    font-size: 43px;
+  }
+  .hero {
+    min-height: 950px;
+  }
+  .portfolio-footer {
+    align-items: flex-start;
+  }
+  .portfolio-footer p {
+    font-size: 9px;
+    max-width: 210px;
+  }
+  .collatz-preview b {
+    font-size: 32px;
+  }
+}

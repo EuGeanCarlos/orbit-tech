@@ -1,10 +1,10 @@
 export const site = {
-  name: "Orbit",
+  name: "Gean Carlos",
   email: "",
   whatsapp: "",
   formEndpoint: "",
   github: "https://github.com/EuGeanCarlos",
-  description: "Engenharia, design e inteligência artificial. Na mesma órbita.",
+  description: "Portfólio pessoal de desenvolvimento e experiências digitais.",
 };
 export const projects = [
   {
@@ -18,23 +18,23 @@ export const projects = [
     visual: "energy",
   },
   {
-    name: "Orbit Operations",
-    category: "Sistema demonstrativo",
+    name: "Calculadora de Collatz",
+    category: "Projeto de estudo · aplicação web",
     description:
-      "Conceito interativo de uma operação conectada. Explore indicadores e fluxos com dados fictícios.",
-    tags: ["React", "TypeScript"],
-    url: "#solucoes",
-    repo: "",
+      "Aplicação para explorar a sequência da Conjectura de Collatz. Um exercício de lógica e visualização matemática.",
+    tags: ["JavaScript", "Matemática"],
+    url: "https://eugeancarlos.github.io/Appweb_Collatz_Calculator/",
+    repo: "https://github.com/EuGeanCarlos/Appweb_Collatz_Calculator",
     visual: "operations",
   },
   {
-    name: "Orbit Intelligence",
-    category: "Assistente demonstrativo",
+    name: "Player de música",
+    category: "Projeto de estudo · interface web",
     description:
-      "Experiência local de atendimento com perguntas predefinidas. Sem conexão com um modelo de IA.",
-    tags: ["Interface", "Automação"],
-    url: "#solucoes",
-    repo: "",
+      "Player de músicas desenvolvido com HTML, CSS e JavaScript. Um estudo de interface e interações no navegador.",
+    tags: ["HTML", "CSS", "JavaScript"],
+    url: "https://eugeancarlos.github.io/Player-music-JavaScript/",
+    repo: "https://github.com/EuGeanCarlos/Player-music-JavaScript",
     visual: "intelligence",
   },
 ];

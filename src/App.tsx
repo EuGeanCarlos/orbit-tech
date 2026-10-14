@@ -11,18 +11,14 @@ import {
   ArrowUpRight,
   ArrowRight,
   Code2,
-  Layers3,
   Workflow,
   Sparkles,
   Menu,
   X,
   Github,
-  Check,
-  Plus,
+  Play,
 } from "lucide-react";
 import { site, projects } from "./config/site";
-import Demos from "./components/Demos";
-import Contact from "./components/Contact";
 const Scene = lazy(() => import("./components/Scene"));
 class SceneBoundary extends Component<
   { children: ReactNode },
@@ -40,116 +36,24 @@ class SceneBoundary extends Component<
     );
   }
 }
-const services = [
-  {
-    title: "Websites & landing pages",
-    text: "Experiências digitais que conectam sua marca às pessoas certas.",
-    icon: Code2,
-    kind: "browser",
-    tags: "PRESENÇA DIGITAL / CONVERSÃO",
-  },
-  {
-    title: "Sistemas personalizados",
-    text: "Software sob medida para organizar operações e resolver desafios reais.",
-    icon: Layers3,
-    kind: "mini-dashboard",
-    tags: "PLATAFORMAS / SAAS / APIS",
-  },
-  {
-    title: "Automação empresarial",
-    text: "Ferramentas conectadas. Menos tarefas repetitivas. Mais tempo para evoluir.",
-    icon: Workflow,
-    kind: "mini-flow",
-    tags: "INTEGRAÇÕES / PROCESSOS",
-  },
-  {
-    title: "Inteligência artificial",
-    text: "Soluções inteligentes para atendimento, informação e decisões melhores.",
-    icon: Sparkles,
-    kind: "mini-chat",
-    tags: "ASSISTENTES / ANÁLISE / IA",
-  },
-];
 const nav = [
   ["inicio", "Início"],
-  ["servicos", "Serviços"],
-  ["solucoes", "Soluções"],
   ["projetos", "Projetos"],
+  ["habilidades", "Habilidades"],
   ["sobre", "Sobre"],
+  ["contato", "Contato"],
 ];
 function Logo() {
   return (
-    <span className="logo">
+    <span className="logo personal-logo">
       <svg viewBox="0 0 42 42" aria-hidden="true">
         <ellipse cx="21" cy="21" rx="20" ry="9" transform="rotate(-40 21 21)" />
         <circle cx="21" cy="21" r="6" />
       </svg>
-      {site.name.toLowerCase()}
-      <sup>®</sup>
+      <span>
+        gean carlos<span className="logo-period">.</span>
+      </span>
     </span>
-  );
-}
-function MiniVisual({ kind }: { kind: string }) {
-  return (
-    <div className={`service-visual ${kind}`} aria-hidden="true">
-      {kind === "browser" ? (
-        <div className="tiny-window">
-          <span>
-            ● ● ● <i>orbit.studio</i>
-          </span>
-          <div>
-            <b>
-              Make
-              <br />
-              your next move.
-            </b>
-            <em />
-            <small>Explore possibilidades ↗</small>
-          </div>
-        </div>
-      ) : kind === "mini-dashboard" ? (
-        <div className="tiny-window">
-          <span>
-            ● ● ● <i>Visão geral · dados fictícios</i>
-          </span>
-          <div className="mini-stats">
-            <b>
-              128<small>Solicitações</small>
-            </b>
-            <b>
-              94<small>Concluídas</small>
-            </b>
-          </div>
-          <div className="mini-bars">
-            {[35, 65, 48, 90, 58, 78, 100, 82].map((h, i) => (
-              <i key={i} style={{ height: `${h}%` }} />
-            ))}
-          </div>
-        </div>
-      ) : kind === "mini-flow" ? (
-        <div className="mini-flow-inner">
-          <span>
-            <Code2 />
-          </span>
-          <i />
-          <span>
-            <Workflow />
-          </span>
-          <i />
-          <span>
-            <Check />
-          </span>
-        </div>
-      ) : (
-        <div className="tiny-conversation">
-          <span>
-            <Sparkles size={16} /> Assistente · demo
-          </span>
-          <p>Como posso otimizar minha operação?</p>
-          <p>Vamos conectar suas ferramentas e simplificar seus processos.</p>
-        </div>
-      )}
-    </div>
   );
 }
 export default function App() {
@@ -165,15 +69,14 @@ export default function App() {
     const scroll = () => setScrolled(window.scrollY > 25);
     window.addEventListener("scroll", scroll, { passive: true });
     const observer = new IntersectionObserver(
-      (entries) => {
+      (entries) =>
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             entry.target.classList.add("visible");
             if (nav.some(([id]) => id === entry.target.id))
               setActive(entry.target.id);
           }
-        });
-      },
+        }),
       { threshold: 0.13 },
     );
     document
@@ -191,7 +94,7 @@ export default function App() {
         Pular para o conteúdo
       </a>
       <header className={scrolled ? "scrolled" : ""}>
-        <a href="#inicio" aria-label="Orbit — início">
+        <a href="#inicio" aria-label="Gean Carlos — início">
           <Logo />
         </a>
         <nav aria-label="Principal" className={menu ? "open" : ""}>
@@ -205,16 +108,14 @@ export default function App() {
               {label}
             </a>
           ))}
-          <a
-            href="#contato"
-            className="mobile-contact"
-            onClick={() => setMenu(false)}
-          >
-            Contato
-          </a>
         </nav>
-        <a href="#contato" className="nav-cta">
-          Fale com a gente <ArrowUpRight size={16} />
+        <a
+          href={site.github}
+          className="nav-cta"
+          target="_blank"
+          rel="noreferrer"
+        >
+          GitHub <ArrowUpRight size={16} />
         </a>
         <button
           className="menu-toggle"
@@ -229,33 +130,34 @@ export default function App() {
         <section id="inicio" className="hero">
           <div className="hero-copy">
             <span className="pill">
-              <span className="status-dot" /> SOFTWARE PARA O PRÓXIMO CAPÍTULO
+              <span className="status-dot" /> PORTFÓLIO / GEAN CARLOS
             </span>
             <h1>
-              Transformamos{" "}
-              <br />
-              ideias em{" "}
+              Ideias, código
+              <br />e{" "}
               <span>
-                soluções{" "}
+                possibilidades
                 <br />
-                digitais inteligentes.
+                em movimento.
               </span>
             </h1>
             <p>
-              Desenvolvemos sites, sistemas e soluções com inteligência
-              artificial para acelerar a transformação digital do seu negócio.
+              Sou Gean Carlos. Este é meu espaço para compartilhar projetos
+              autorais, estudos e experiências com desenvolvimento de software.
             </p>
             <div className="hero-actions">
-              <a className="button" href="#contato">
-                Começar um projeto <ArrowUpRight size={19} />
+              <a className="button" href="#projetos">
+                Explorar projetos <ArrowUpRight size={19} />
               </a>
-              <a className="button ghost" href="#solucoes">
-                Explorar soluções <ArrowRight size={18} />
+              <a className="button ghost" href="#sobre">
+                Sobre mim <ArrowRight size={18} />
               </a>
             </div>
             <div className="hero-caption">
               <span />
-              <small>Da primeira ideia à próxima grande possibilidade.</small>
+              <small>
+                Aprender, construir e evoluir. Um projeto de cada vez.
+              </small>
             </div>
           </div>
           <div className="hero-art">
@@ -270,217 +172,79 @@ export default function App() {
             <div className="satellite sat-one">
               <Code2 size={18} />
               <span>
-                Web experiences<small>Design que conecta.</small>
+                Desenvolvimento web<small>Interfaces e interações.</small>
               </span>
               <span className="status-dot" />
             </div>
             <div className="satellite sat-two">
               <Sparkles size={18} />
               <span>
-                Intelligence<small>Possibilidades ampliadas.</small>
+                Experimentos<small>Ideias em construção.</small>
               </span>
             </div>
             <div className="satellite sat-three">
               <Workflow size={18} />
               <span>
-                Connected systems<small>Fluxos em movimento.</small>
+                Software & lógica<small>Aprendizado em movimento.</small>
               </span>
             </div>
             <span className="art-caption">
-              UM ECOSSISTEMA. INFINITAS CONEXÕES.
+              UM ESPAÇO PARA EXPLORAR POSSIBILIDADES.
             </span>
-            <span className="coordinate">ORB—01 / DIGITAL CORE</span>
+            <span className="coordinate">GC—01 / CREATIVE DEVELOPMENT</span>
           </div>
           <div className="hero-bottom">
-            <span>TECNOLOGIA COM PROPÓSITO. DESIGN COM INTENÇÃO.</span>
-            <a href="#servicos">
-              Explore a órbita <ArrowDown size={15} />
+            <span>DESENVOLVIMENTO + CURIOSIDADE + PRÁTICA</span>
+            <a href="#projetos">
+              Conheça meu trabalho <ArrowDown size={15} />
             </a>
           </div>
         </section>
         <div className="capability-strip">
           <span>
-            Ideias conectadas.
+            Projetos autorais.
             <br />
-            <b>Possibilidades expandidas.</b>
+            <b>Aprendizado contínuo.</b>
           </span>
           {[
-            "Web experiences",
-            "Software sob medida",
-            "Automação",
-            "Inteligência artificial",
+            "Desenvolvimento web",
+            "Interfaces",
+            "Lógica de programação",
+            "Experimentos com IA",
           ].map((x) => (
             <p key={x}>
-              <Plus size={17} />
+              <span className="status-dot" />
               {x}
             </p>
           ))}
         </div>
-        <section id="servicos" className="section">
-          <div className="section-top">
-            <span className="eyebrow">01 / O QUE CONSTRUÍMOS</span>
-            <span className="section-aside">
-              Seu desafio é o ponto de partida.
-              <br />A tecnologia é o caminho.
-            </span>
-          </div>
-          <h2>
-            Tecnologia para transformar
-            <br />o seu <em>negócio.</em>
-          </h2>
-          <p className="section-intro">
-            Da primeira ideia à solução completa, desenvolvemos tecnologia para
-            impulsionar empresas.
-          </p>
-          <div className="services-grid">
-            {services.map(({ title, text, icon: Icon, kind, tags }, i) => (
-              <a href="#solucoes" className="service-card reveal" key={title}>
-                <div className="card-top">
-                  <span>0{i + 1}</span>
-                  <ArrowUpRight size={21} />
-                </div>
-                <MiniVisual kind={kind} />
-                <span className="micro-label">{tags}</span>
-                <h3>
-                  <Icon size={20} />
-                  {title}
-                </h3>
-                <p>{text}</p>
-              </a>
-            ))}
-          </div>
-        </section>
-        <section id="solucoes" className="section solutions">
-          <div className="section-top">
-            <span className="eyebrow">02 / EXPLORE NA PRÁTICA</span>
-            <span className="pill subtle">INTERATIVO. SIMPLES. CONECTADO.</span>
-          </div>
-          <div className="split-title">
-            <h2>
-              Experimente o que
-              <br />a tecnologia <em>pode fazer.</em>
-            </h2>
-            <p>
-              Uma pequena amostra de possibilidades reais.
-              <br />
-              Explore nossas experiências com dados fictícios e simulações
-              locais.
-            </p>
-          </div>
-          <Demos />
-        </section>
-        <section className="section ai-section" id="inteligencia">
-          <div className="neural" aria-hidden="true">
-            <div className="neural-ring" />
-            <div className="neural-ring second" />
-            {Array.from({ length: 12 }, (_, i) => (
-              <i
-                key={i}
-                style={{ "--angle": `${i * 30}deg` } as React.CSSProperties}
-              />
-            ))}
-            <div className="neural-center">
-              <Sparkles size={44} />
-            </div>
-            <span className="neural-tag">INTELLIGENCE, CONNECTED.</span>
-          </div>
-          <div>
-            <span className="eyebrow">INTELIGÊNCIA COM PROPÓSITO</span>
-            <h2>
-              Inteligência artificial
-              <br />
-              aplicada a <em>desafios reais.</em>
-            </h2>
-            <p>
-              Utilizamos inteligência artificial para desenvolver experiências e
-              processos empresariais mais eficientes. Começamos pelo problema,
-              com atenção aos dados e às pessoas.
-            </p>
-            <div className="ai-list">
-              {[
-                "Assistentes inteligentes",
-                "Atendimento automatizado",
-                "Análise de dados",
-                "Integrações com IA",
-                "Processamento de informações",
-                "Automação de fluxos",
-              ].map((x) => (
-                <span key={x}>
-                  <Plus size={14} />
-                  {x}
-                </span>
-              ))}
-            </div>
-            <a href="#contato" className="text-link">
-              Explore uma solução para sua empresa <ArrowUpRight size={18} />
-            </a>
-          </div>
-        </section>
-        <section className="section process" id="processo">
-          <span className="eyebrow">03 / COMO CHEGAMOS LÁ</span>
-          <div className="split-title">
-            <h2>
-              Da ideia
-              <br />à <em>solução.</em>
-            </h2>
-            <p>
-              Clareza em cada etapa.
-              <br />
-              Colaboração do primeiro encontro à próxima evolução.
-            </p>
-          </div>
-          <div className="timeline">
-            {[
-              ["Descoberta", "Entendemos seu negócio, desafios e objetivos."],
-              [
-                "Planejamento",
-                "Definimos a arquitetura e a estratégia da solução.",
-              ],
-              ["Design", "Criamos experiências centradas nas pessoas."],
-              [
-                "Desenvolvimento",
-                "Transformamos o planejamento em software funcional.",
-              ],
-              [
-                "Entrega e evolução",
-                "Validamos, publicamos e evoluímos a solução.",
-              ],
-            ].map(([title, text], i) => (
-              <div className="process-step reveal" key={title}>
-                <span className="step-index">0{i + 1}</span>
-                <h3>{title}</h3>
-                <p>{text}</p>
-              </div>
-            ))}
-          </div>
-        </section>
         <section className="section portfolio" id="projetos">
           <div className="section-top">
-            <span className="eyebrow">04 / IDEIAS EM MOVIMENTO</span>
+            <span className="eyebrow">01 / SELEÇÃO DE PROJETOS</span>
             <a
               className="text-link"
               href={site.github}
               target="_blank"
               rel="noreferrer"
             >
-              Explore o GitHub <ArrowUpRight size={17} />
+              Todos os repositórios <ArrowUpRight size={17} />
             </a>
           </div>
           <h2>
-            Projetos que transformam
+            Um pouco do que
             <br />
-            ideias em <em>realidade.</em>
+            venho <em>construindo.</em>
           </h2>
           <p className="section-intro">
-            Projetos autorais e conceitos demonstrativos. Um olhar sobre o que
-            podemos construir.
+            Projetos pessoais e de estudo disponíveis no meu GitHub. Cada um faz
+            parte da minha jornada de aprendizado.
           </p>
           <div className="project-grid">
             {projects.map((project, i) => (
               <article key={project.name} className="project-card reveal">
                 <a
                   href={project.url}
-                  target={project.url.startsWith("http") ? "_blank" : undefined}
+                  target="_blank"
                   rel="noreferrer"
                   aria-label={`Explorar ${project.name}`}
                   className={`project-art ${project.visual}`}
@@ -496,47 +260,30 @@ export default function App() {
                           mais eficiente.
                         </b>
                       </div>
-                      <span className="project-preview-tag">
-                        PROJETO AUTORAL
-                      </span>
                     </>
                   ) : i === 1 ? (
-                    <>
-                      <span className="mock-sidebar">
-                        ◈<br />—<br />—<br />—
-                      </span>
-                      <div className="mock-screen">
-                        <small>Operations overview</small>
-                        <div className="mock-metrics">
-                          <b>128</b>
-                          <b>94</b>
-                          <b>12</b>
-                        </div>
-                        <div className="mock-chart">
-                          {[30, 55, 40, 75, 60, 85, 100, 80].map((h, j) => (
-                            <i key={j} style={{ height: `${h}%` }} />
-                          ))}
-                        </div>
-                      </div>
-                      <span className="project-preview-tag">
-                        DADOS FICTÍCIOS
-                      </span>
-                    </>
-                  ) : (
-                    <>
-                      <div className="intelligence-orb">
-                        <Sparkles size={45} />
-                      </div>
-                      <b>
-                        Uma nova forma
+                    <div className="collatz-preview">
+                      <small>COLLATZ EXPLORER</small>
+                      <b>7 → 22 → 11</b>
+                      <span>
+                        Explorando padrões.
                         <br />
-                        de conectar.
-                      </b>
-                      <span className="project-preview-tag">
-                        CONCEITO DEMONSTRATIVO
+                        Praticando lógica.
                       </span>
-                    </>
+                    </div>
+                  ) : (
+                    <div className="player-preview">
+                      <span className="record-disc">
+                        <Play size={32} fill="currentColor" />
+                      </span>
+                      <b>Interface em sintonia.</b>
+                      <span>HTML / CSS / JAVASCRIPT</span>
+                    </div>
                   )}
+                  <span className="project-preview-tag">
+                    {i === 0 ? "PROJETO AUTORAL" : "PROJETO DE ESTUDO"} ·
+                    PREVIEW ILUSTRATIVO
+                  </span>
                   <span className="project-arrow">
                     <ArrowUpRight size={22} />
                   </span>
@@ -548,95 +295,47 @@ export default function App() {
                   {project.tags.map((t) => (
                     <span key={t}>{t}</span>
                   ))}
-                  {project.repo && (
-                    <a
-                      href={project.repo}
-                      target="_blank"
-                      rel="noreferrer"
-                      aria-label={`Repositório ${project.name}`}
-                    >
-                      <Github size={16} />
-                    </a>
-                  )}
+                  <a
+                    href={project.repo}
+                    target="_blank"
+                    rel="noreferrer"
+                    aria-label={`Repositório ${project.name}`}
+                  >
+                    <Github size={16} />
+                  </a>
                 </div>
               </article>
             ))}
           </div>
         </section>
-        <section className="section about" id="sobre">
-          <div>
-            <span className="eyebrow">05 / NOSSA ÓRBITA</span>
-            <h2>
-              Tecnologia,
-              <br />
-              criatividade
-              <br />e <em>inovação.</em>
-            </h2>
-            <p>
-              Somos uma startup de tecnologia dedicada ao desenvolvimento de
-              soluções digitais para empresas.
-            </p>
-            <p>
-              Combinamos engenharia de software, design e inteligência
-              artificial para transformar desafios em produtos e processos mais
-              eficientes.
-            </p>
-          </div>
-          <div className="about-code">
-            <div className="code-top">
-              <span className="window-dots">
-                <i />
-                <i />
-                <i />
-              </span>
-              <small>possibilities.ts</small>
-            </div>
-            <pre>
-              <span className="code-muted">
-                // O próximo capítulo do seu negócio
-              </span>
-              {"\n\n"}
-              <span className="code-purple">const</span> future = {"{\n"} idea:{" "}
-              <span className="code-green">'sua visão'</span>,{"\n"} design:{" "}
-              <span className="code-green">'centrado nas pessoas'</span>,{"\n"}{" "}
-              technology:{" "}
-              <span className="code-green">'a serviço do negócio'</span>,{"\n"}{" "}
-              possibilities: <span className="code-purple">Infinity</span>
-              {"\n};\n\n"}
-              <span className="code-purple">await</span> orbit.
-              <span className="code-blue">build</span>(future);
-              <span className="cursor">▌</span>
-            </pre>
-            <div className="code-bottom">
-              <span className="status-dot" /> READY TO CREATE SOMETHING
-              MEANINGFUL
-            </div>
-          </div>
-        </section>
-        <section className="section differences">
-          <span className="eyebrow">DESIGN E ENGENHARIA NA MESMA DIREÇÃO</span>
+        <section className="section differences" id="habilidades">
+          <span className="eyebrow">02 / TECNOLOGIAS E INTERESSES</span>
           <h2>
-            Construímos tecnologia pensando
+            Ferramentas para criar.
             <br />
-            no seu <em>crescimento.</em>
+            Curiosidade para <em>evoluir.</em>
           </h2>
+          <p className="section-intro">
+            Tecnologias presentes nos meus projetos e áreas que exploro na
+            prática.
+          </p>
           <div className="difference-grid">
             {[
               [
-                "Soluções personalizadas",
-                "Seu contexto orienta cada escolha. Software que se adapta ao negócio.",
+                "Frontend",
+                "HTML, CSS, JavaScript, React e TypeScript para construir interfaces e experiências no navegador.",
               ],
               [
-                "Tecnologia moderna",
-                "Arquitetura clara e ferramentas adequadas ao desafio.",
+                "Software e lógica",
+                "Estudos com Java, organização de código e resolução de problemas de programação.",
               ],
               [
-                "Experiência do usuário",
-                "Interfaces que fazem sentido para quem as utiliza.",
+                "Git e publicação",
+                "Versionamento com Git, projetos no GitHub e publicação estática com GitHub Pages.",
               ],
               [
-                "Evolução contínua",
-                "Uma base preparada para acompanhar novas possibilidades.",
+                "Experimentos digitais",
+                "Explorações com inteligência artificial, visualização de dados e interfaces tridimensionais.",
               ],
             ].map(([title, text], i) => (
               <div key={title}>
@@ -647,102 +346,106 @@ export default function App() {
             ))}
           </div>
         </section>
-        <section className="section faq" id="perguntas">
+        <section className="section about" id="sobre">
           <div>
-            <span className="eyebrow">ANTES DE COMEÇAR</span>
+            <span className="eyebrow">03 / SOBRE MIM</span>
             <h2>
-              Boas perguntas.
+              Prazer,
               <br />
-              Respostas <em>claras.</em>
+              sou <em>Gean Carlos.</em>
             </h2>
             <p>
-              Não encontrou sua resposta?
-              <br />
-              <a href="#contato" className="text-link">
-                Vamos conversar <ArrowUpRight size={16} />
-              </a>
+              Tenho interesse em desenvolvimento de software e em como ideias se
+              tornam experiências digitais. Compartilho no GitHub projetos
+              pessoais, exercícios e experimentos que acompanham meu
+              aprendizado.
             </p>
+            <p>
+              Este portfólio reúne parte desse percurso: interfaces web,
+              aplicações de lógica e explorações com tecnologia. Cada projeto é
+              uma oportunidade de praticar, entender e melhorar.
+            </p>
+            <a
+              className="text-link about-link"
+              href={site.github}
+              target="_blank"
+              rel="noreferrer"
+            >
+              Acompanhe minha jornada no GitHub <ArrowUpRight size={17} />
+            </a>
           </div>
-          <div className="faq-list">
-            {[
-              [
-                "Qual solução é ideal para minha empresa?",
-                "Começamos entendendo seus objetivos, processos e necessidades. A partir dessa descoberta, propomos uma solução e um escopo adequados ao seu momento.",
-              ],
-              [
-                "Quanto tempo leva para desenvolver um projeto?",
-                "O prazo depende da complexidade, das integrações e do conteúdo necessário. Definimos etapas e um cronograma durante o planejamento, antes de iniciar o desenvolvimento.",
-              ],
-              [
-                "Vocês integram ferramentas que já utilizamos?",
-                "Sim. Avaliamos as APIs e possibilidades de integração dos sistemas existentes para conectar informações e automatizar processos com segurança.",
-              ],
-              [
-                "As demonstrações usam inteligência artificial real?",
-                "Não. As experiências desta página são simulações locais com respostas predefinidas e dados fictícios. Uma integração real exige escopo, infraestrutura e configuração próprios.",
-              ],
-              [
-                "Como funciona o orçamento?",
-                "Você compartilha seu desafio. Conversamos sobre o contexto e definimos entregas, cronograma e investimento a partir do escopo.",
-              ],
-              [
-                "O projeto pode evoluir após a entrega?",
-                "Sim. Podemos planejar manutenção e novas funcionalidades conforme as necessidades da solução. Condições e responsabilidades são definidas na proposta.",
-              ],
-            ].map(([q, a]) => (
-              <details key={q}>
-                <summary>
-                  {q}
-                  <Plus size={19} />
-                </summary>
-                <p>{a}</p>
-              </details>
-            ))}
+          <div className="about-code">
+            <div className="code-top">
+              <span className="window-dots">
+                <i />
+                <i />
+                <i />
+              </span>
+              <small>journey.ts</small>
+            </div>
+            <pre>
+              <span className="code-muted">// Um projeto de cada vez</span>
+              {"\n\n"}
+              <span className="code-purple">const</span> journey = {"{\n"}{" "}
+              curiosity: <span className="code-green">true</span>,{"\n"} ideas:{" "}
+              <span className="code-green">'em movimento'</span>,{"\n"}{" "}
+              learning: <span className="code-green">'contínuo'</span>,{"\n"}{" "}
+              nextStep: <span className="code-green">'construir'</span>
+              {"\n};\n\n"}
+              <span className="code-purple">await</span>{" "}
+              <span className="code-blue">create</span>(journey);
+              <span className="cursor">▌</span>
+            </pre>
+            <div className="code-bottom">
+              <span className="status-dot" /> LEARN. BUILD. ITERATE.
+            </div>
           </div>
         </section>
-        <Contact />
+        <section id="contato" className="section portfolio-contact">
+          <span className="eyebrow">04 / VAMOS NOS CONECTAR</span>
+          <h2>
+            Uma boa conversa pode
+            <br />
+            abrir novas <em>possibilidades.</em>
+          </h2>
+          <p className="section-intro">
+            Para conhecer mais projetos, acompanhar meu trabalho ou encontrar
+            meus canais públicos, visite meu perfil no GitHub.
+          </p>
+          <a
+            className="button"
+            href={site.github}
+            target="_blank"
+            rel="noreferrer"
+          >
+            <Github size={18} /> Encontrar Gean no GitHub{" "}
+            <ArrowUpRight size={18} />
+          </a>
+        </section>
       </main>
       <footer>
-        <div className="footer-top">
+        <div className="portfolio-footer">
           <div>
             <a href="#inicio">
               <Logo />
             </a>
             <p>{site.description}</p>
           </div>
-          <div>
-            <span>NAVEGUE</span>
-            {[...nav.slice(1), ["contato", "Contato"]].map(([id, label]) => (
-              <a href={`#${id}`} key={id}>
-                {label}
-              </a>
-            ))}
-          </div>
-          <div>
-            <span>CONSTRUA</span>
-            <a href="#servicos">Websites e landing pages</a>
-            <a href="#servicos">Sistemas personalizados</a>
-            <a href="#solucoes">Automação empresarial</a>
-            <a href="#inteligencia">Inteligência artificial</a>
-          </div>
-          <div>
-            <span>CONECTE-SE</span>
-            <a href={site.github} target="_blank" rel="noreferrer">
-              GitHub <ArrowUpRight size={14} />
-            </a>
-            {site.email && <a href={`mailto:${site.email}`}>{site.email}</a>}
-            <a href="#contato">
-              Começar um projeto <ArrowUpRight size={14} />
-            </a>
-          </div>
+          <a
+            className="text-link"
+            href={site.github}
+            target="_blank"
+            rel="noreferrer"
+          >
+            GitHub <ArrowUpRight size={16} />
+          </a>
         </div>
         <div className="footer-bottom">
           <span>
-            © {new Date().getFullYear()} {site.name}. Feito para novas
-            possibilidades.
+            © {new Date().getFullYear()} {site.name}. Portfólio pessoal.
           </span>
           <span>
-            DESIGN + CÓDIGO + PROPÓSITO <span className="status-dot" />
+            APRENDER + CONSTRUIR + EVOLUIR <span className="status-dot" />
           </span>
           <a href="#inicio">Voltar ao início ↑</a>
         </div>
