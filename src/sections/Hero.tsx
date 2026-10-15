@@ -22,36 +22,45 @@ export default function Hero() {
         clearProps: "all",
       });
       const match = gsap.matchMedia();
-      match.add("(min-width: 900px)", () => {
-        const timeline = gsap.timeline({
-          scrollTrigger: {
-            trigger: root.current,
-            start: "top top",
-            end: "+=500",
-            pin: true,
-            scrub: 1,
-            invalidateOnRefresh: true,
-            onUpdate: (self) => {
-              state.current.progress = self.progress;
+      match.add(
+        { desktop: "(min-width: 900px)", compact: "(max-width: 899px)" },
+        (context) => {
+          const desktop = Boolean(context.conditions?.desktop);
+          const timeline = gsap.timeline({
+            scrollTrigger: {
+              trigger: root.current,
+              start: "top top",
+              end: desktop ? "+=650" : "bottom top",
+              pin: desktop,
+              scrub: 0.6,
+              invalidateOnRefresh: true,
+              onUpdate: (self) => {
+                state.current.progress = self.progress;
+              },
             },
-          },
-        });
-        timeline
-          .to(
-            ".hero-heading",
-            { y: -65, scale: 0.94, opacity: 0.15, ease: "none" },
-            0,
-          )
-          .to(
-            ".hero-subtitle, .hero-actions",
-            { y: -30, opacity: 0, ease: "none" },
-            0,
-          )
-          .to(".hero-bottom", { opacity: 0, ease: "none" }, 0);
-        return () => {
-          state.current.progress = 0;
-        };
-      });
+          });
+          timeline
+            .to(
+              ".hero-heading",
+              {
+                y: desktop ? -80 : -35,
+                scale: 0.94,
+                opacity: desktop ? 0.15 : 0.6,
+                ease: "none",
+              },
+              0,
+            )
+            .to(
+              ".hero-subtitle, .hero-actions",
+              { y: -30, opacity: 0, ease: "none" },
+              0,
+            )
+            .to(".hero-bottom", { opacity: 0, ease: "none" }, 0);
+          return () => {
+            state.current.progress = 0;
+          };
+        },
+      );
       return () => match.revert();
     }, root);
     return () => context.revert();
@@ -102,7 +111,7 @@ export default function Hero() {
         </span>
       </div>
       <span className="scene-label label-left">
-        ORIGINAL 3D OBJECTS <MoveUpRight size={13} />
+        OBJETOS 3D ORIGINAIS <MoveUpRight size={13} />
       </span>
       <span className="scene-label label-right">
         CRIATIVIDADE EM TODAS AS DIMENSÕES

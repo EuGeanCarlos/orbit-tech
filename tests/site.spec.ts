@@ -1,4 +1,61 @@
 import { test, expect } from "@playwright/test";
+test("movimento reduzido pode ser ativado explicitamente e a cena WebGL muda com o scroll", async ({
+  page,
+}) => {
+  test.setTimeout(60000);
+  await page.setViewportSize({ width: 856, height: 900 });
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.goto("/");
+  await expect(
+    page.getByRole("button", { name: "Ativar animações" }),
+  ).toBeVisible();
+  await expect(page.locator("html")).toHaveAttribute("data-motion", "reduced");
+  await page.getByRole("button", { name: "Ativar animações" }).click();
+  await expect(page.locator("html")).toHaveAttribute("data-motion", "full");
+  await page.reload();
+  await expect(
+    page.getByRole("button", { name: "Reduzir animações" }),
+  ).toBeVisible();
+  await page.evaluate(() => document.fonts.ready);
+  const dimensions = await page
+    .locator("#experiencia")
+    .evaluate((el) => ({
+      top: el.getBoundingClientRect().top + window.scrollY,
+      height: el.getBoundingClientRect().height,
+      viewport: window.innerHeight,
+    }));
+  const distance = dimensions.height - dimensions.viewport + 85;
+  const images: Buffer[] = [];
+  for (const [index, fraction] of [0.05, 0.34, 0.59, 0.9].entries()) {
+    await page.evaluate(
+      (top) => window.scrollTo({ top, behavior: "instant" }),
+      dimensions.top - 85 + distance * fraction,
+    );
+    await page.waitForTimeout(1100);
+    const canvas = page.locator(".story-visual canvas");
+    await expect(canvas).toBeVisible();
+    expect(
+      await canvas.evaluate((el) => {
+        const gl = (el as HTMLCanvasElement).getContext("webgl2");
+        return !!gl && !gl.isContextLost();
+      }),
+    ).toBe(true);
+    await expect(page.locator(".story-chapter").nth(index)).toHaveCSS(
+      "opacity",
+      "1",
+    );
+    const screenshot = await canvas.screenshot({
+      path: `test-results/webgl-scroll-${index}.png`,
+    });
+    images.push(screenshot);
+  }
+  expect(images[0].equals(images[1])).toBe(false);
+  expect(images[1].equals(images[2])).toBe(false);
+  expect(images[2].equals(images[3])).toBe(false);
+  await page.getByRole("button", { name: "Reduzir animações" }).click();
+  await expect(page.locator("#experiencia")).toHaveClass(/story-reduced/);
+  await expect(page.locator(".pin-spacer")).toHaveCount(0);
+});
 test("serviços, filtros e demonstrações locais", async ({ page }) => {
   const errors: string[] = [];
   page.on("pageerror", (e) => errors.push(e.message));

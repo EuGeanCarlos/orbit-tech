@@ -1,5 +1,9 @@
-import { useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
+export const ReducedMotionContext = createContext<boolean | undefined>(
+  undefined,
+);
 export function useReducedMotion() {
+  const override = useContext(ReducedMotionContext);
   const [reduced, setReduced] = useState(
     () => matchMedia("(prefers-reduced-motion: reduce)").matches,
   );
@@ -9,5 +13,5 @@ export function useReducedMotion() {
     media.addEventListener("change", change);
     return () => media.removeEventListener("change", change);
   }, []);
-  return reduced;
+  return override ?? reduced;
 }

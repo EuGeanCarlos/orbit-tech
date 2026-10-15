@@ -15,7 +15,7 @@ import type { SceneState } from "../animations/tokens";
 import type { ServiceId } from "../data/services";
 
 interface Props {
-  variant: "hero" | ServiceId;
+  variant: "hero" | "story" | ServiceId;
   state?: RefObject<SceneState>;
   reduced: boolean;
   active: boolean;
@@ -387,6 +387,73 @@ function ServiceObject({
     </group>
   );
 }
+function ScrollWorld({
+  state,
+  reduced,
+}: {
+  state?: RefObject<SceneState>;
+  reduced: boolean;
+}) {
+  const world = useRef<Group>(null);
+  const { camera, size } = useThree();
+  const cameraDistance = Math.max(
+    6.8,
+    2.8 / (Math.tan(Math.PI / 8) * (size.width / size.height)),
+  );
+  useFrame(({ clock }, delta) => {
+    if (!world.current) return;
+    const progress = reduced ? 0 : (state?.current.progress ?? 0);
+    const chapter = Math.min(3, Math.floor(progress * 4));
+    const blend =
+      chapter === 3
+        ? 0
+        : MathUtils.smoothstep((progress * 4 - chapter - 0.65) / 0.35, 0, 1);
+    world.current.children.forEach((object, index) => {
+      const weight =
+        index === chapter ? 1 - blend : index === chapter + 1 ? blend : 0;
+      object.visible = weight > 0.001;
+      object.position.set(
+        (index - chapter - blend) * 3.8,
+        reduced ? 0 : Math.sin(clock.elapsedTime * 0.4) * 0.06,
+        -(1 - weight) * 2,
+      );
+      object.scale.setScalar(0.85 + weight * 0.15);
+      object.rotation.y =
+        (index - chapter - blend) * 0.8 +
+        (reduced ? 0 : (state?.current.pointerX ?? 0) * 0.14);
+      object.rotation.z = (index - chapter - blend) * 0.13;
+    });
+    camera.position.z = MathUtils.damp(
+      camera.position.z,
+      cameraDistance - Math.sin(progress * Math.PI) * 0.6,
+      5,
+      delta,
+    );
+    camera.position.x = MathUtils.damp(
+      camera.position.x,
+      reduced ? 0 : (state?.current.pointerX ?? 0) * 0.15,
+      5,
+      delta,
+    );
+    camera.lookAt(0, 0, 0);
+  });
+  return (
+    <group ref={world}>
+      <group>
+        <BrowserModel dashboard={false} />
+      </group>
+      <group>
+        <BrowserModel dashboard />
+      </group>
+      <group>
+        <Network ai={false} />
+      </group>
+      <group>
+        <Network ai />
+      </group>
+    </group>
+  );
+}
 export default function ExperienceScene({
   variant,
   state,
@@ -413,6 +480,8 @@ export default function ExperienceScene({
       <pointLight position={[1, -4, 4]} intensity={18} color="#6e75ff" />
       {variant === "hero" ? (
         <HeroObjects state={state} reduced={reduced} />
+      ) : variant === "story" ? (
+        <ScrollWorld state={state} reduced={reduced} />
       ) : (
         <ServiceObject variant={variant} reduced={reduced} />
       )}

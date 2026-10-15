@@ -36,7 +36,7 @@ export default function SceneViewport({
   state,
   reduced = false,
 }: {
-  variant?: "hero" | ServiceId;
+  variant?: "hero" | "story" | ServiceId;
   state?: RefObject<SceneState>;
   reduced?: boolean;
 }) {

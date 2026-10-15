@@ -81,6 +81,14 @@ Sem contato configurado, o formulário **prepara um texto copiável** e oferece 
 
 ## Performance e acessibilidade
 
+### Controle de movimento e sequência WebGL
+
+O botão fixo **Ativar animações / Reduzir movimento** permite escolher o movimento somente neste site, com preferência salva em `localStorage` (`orbit-motion`). Por padrão, o site respeita o sistema. Se o navegador informar `prefers-reduced-motion: reduce`, a versão fica estática até a ativação explícita; nenhuma configuração do dispositivo é alterada.
+
+A hero agora acompanha o scroll também abaixo de 900px, sem pinning. A seção **Explore outra dimensão do seu negócio** mantém uma cena WebGL em posição sticky enquanto a rolagem transforma a apresentação entre Web, Sistemas, Automação e IA. Progresso, posição, escala, rotação e câmera são sincronizados por GSAP e R3F, sem setState por frame. Em movimento reduzido, os quatro capítulos aparecem como conteúdo estático, sem um trecho longo de rolagem.
+
+O teste de regressão reproduz uma tela de 856px com movimento reduzido, ativa as animações, verifica persistência após reload, confirma contexto WebGL2 e compara quatro capturas de render diferentes conforme o scroll.
+
 Carregamento separado das cenas, Suspense, error boundary, alternativa sem WebGL, DPR limitado a 1–1.5, pausa fora da viewport e câmera atualizada sem setState por frame. Nós reutilizam geometria e material; conexões memoizam orientação. Não há HDRs, modelos externos ou pós-processamento. Fontes Google Fonts têm fallback do sistema. Não há pontuação Lighthouse ou FPS físico presumidos.
 
 Hover depende da capacidade de ponteiro. Inputs usam no mínimo 16px em toque; navegação funciona por teclado; movimento reduzido preserva conteúdo. Emulação não substitui conferência em celular físico para GPU, teclado virtual, áreas seguras e Safari.

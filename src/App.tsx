@@ -1,4 +1,5 @@
-import { MotionConfig } from "motion/react";
+import MotionPreference from "./components/motion/MotionPreference";
+import ScrollExperience from "./sections/ScrollExperience";
 import Header from "./components/layout/Header";
 import Footer from "./components/layout/Footer";
 import Hero from "./sections/Hero";
@@ -10,7 +11,7 @@ import About from "./sections/About";
 import Contact from "./sections/Contact";
 export default function App() {
   return (
-    <MotionConfig reducedMotion="user">
+    <MotionPreference>
       <a href="#main" className="skip-link">
         Pular para o conteúdo
       </a>
@@ -27,6 +28,7 @@ export default function App() {
           <span>INTELIGÊNCIA ARTIFICIAL</span>
         </div>
         <Services />
+        <ScrollExperience />
         <Experiences />
         <Projects />
         <Process />
@@ -34,6 +36,6 @@ export default function App() {
         <Contact />
       </main>
       <Footer />
-    </MotionConfig>
+    </MotionPreference>
   );
 }
